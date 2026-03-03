@@ -16,7 +16,7 @@ public static class Arrays
         // Step1: create an array of the specified length to hold the multiples
         double[] multiples = new double[length];
 
-        // Step2:loop from 0 to length - 1
+        // Step2:loop from 0 to length
         for (int i = 0; i < length; i++)
         {
             // Step3: calculate the multiple by multiplying the number by (i + 1) and store it in the array
