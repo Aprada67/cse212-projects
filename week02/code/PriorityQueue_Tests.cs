@@ -6,13 +6,16 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
+    // Scenario: Enqueue one item and dequeue it
+    // Expected Result: The same item should be returned
     // Defect(s) Found: 
     public void TestPriorityQueue_1()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        priorityQueue.Enqueue("Alberto", 1);
+        var value = priorityQueue.Dequeue();
+
+        Assert.AreEqual("Alberto", value);
     }
 
     [TestMethod]
@@ -22,8 +25,15 @@ public class PriorityQueueTests
     public void TestPriorityQueue_2()
     {
         var priorityQueue = new PriorityQueue();
-        Assert.Fail("Implement the test case and then remove this.");
+        
+        priorityQueue.Enqueue("Alberto", 1);
+        priorityQueue.Enqueue("Steven", 2);
+        priorityQueue.Enqueue("Geneis", 1);
+
+        var value = priorityQueue.Dequeue();
+
+        Assert.AreEqual("Steven", value);
+        // Add more test cases as needed below.
     }
 
-    // Add more test cases as needed below.
 }
