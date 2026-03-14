@@ -19,21 +19,39 @@ public class PriorityQueueTests
     }
 
     [TestMethod]
-    // Scenario: 
-    // Expected Result: 
-    // Defect(s) Found: 
-    public void TestPriorityQueue_2()
+    // Scenario: Enqueue three items with different priorities
+    // Expected Result: Item with highest priority is dequeued
+    // Defect(s) Found:
+    public void TestPriorityQueue_RemoveHigh()
     {
         var priorityQueue = new PriorityQueue();
-        
+
         priorityQueue.Enqueue("Alberto", 1);
-        priorityQueue.Enqueue("Steven", 2);
-        priorityQueue.Enqueue("Geneis", 1);
+        priorityQueue.Enqueue("Hector", 2);
+        priorityQueue.Enqueue("Genesis", 1);
 
         var value = priorityQueue.Dequeue();
 
-        Assert.AreEqual("Steven", value);
-        // Add more test cases as needed below.
+        Assert.AreEqual("Hector", value);
+    }
+
+    [TestMethod]
+    // Scenario: Dequeue from empty queue
+    // Expected Result: InvalidOperationException with correct message
+    // Defect(s) Found: None
+    public void TestPriorityQueue_EmptyQueue()
+    {
+        var priorityQueue = new PriorityQueue();
+
+        try
+        {
+            priorityQueue.Dequeue();
+            Assert.Fail("Exception should have been thrown.");
+        }
+        catch (InvalidOperationException e)
+        {
+            Assert.AreEqual("The queue is empty.", e.Message);
+        }
     }
 
 }
