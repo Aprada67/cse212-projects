@@ -22,7 +22,30 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+
+        // Set for storing seen words
+        var seen = new HashSet<string>();
+        // List for storing results
+        var result = new List<string>();
+
+        // Iterate through each word in the array
+        foreach (var word in words)
+        {
+            // Skip words with identical letters
+            if (word[0] == word[1])
+                continue;
+            string reversed = $"{word[1]}{word[0]}";
+
+            // If the reversed word has been seen, we have a pair
+            if (seen.Contains(reversed))
+            {
+                result.Add($"{reversed} & {word}");
+            }
+            // Store actual word in the set of seen words
+            seen.Add(word);
+        }
+
+        return result.ToArray();
     }
 
     /// <summary>
@@ -43,6 +66,19 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            // Get the degree from the 4th column and trim whitespace
+            string degree = fields[3].Trim();
+
+            // If the degree exists, increment the count
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree]++;
+            }
+            else
+            {
+                // Otherwise, add the degree to the dictionary with a count of 1
+                degrees[degree] = 1;
+            }
         }
 
         return degrees;
@@ -66,8 +102,45 @@ public static class SetsAndMaps
     /// </summary>
     public static bool IsAnagram(string word1, string word2)
     {
-        // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+        // Clean strings: remove spaces and convert to lower case
+        word1 = word1.Replace(" ", "").ToLower();
+        word2 = word2.Replace(" ", "").ToLower();
+
+        // If different lenght are not anagrams
+        if (word1.Length != word2.Length)
+            return false;
+
+        var counts = new Dictionary<char, int>();
+
+        // Count letters in word1
+        foreach (char c in word1)
+        {
+            if (counts.ContainsKey(c))
+                counts[c]++;
+            else
+                counts[c] = 1;
+        }
+
+        // Subtract letters from word2
+        foreach (char c in word2)
+        {
+            if (!counts.ContainsKey(c))
+                return false;
+
+            counts[c]--;
+
+            if (counts[c] < 0)
+                return false;
+        }
+
+        // Verify all counts are zero
+        foreach (var value in counts.Values)
+        {
+            if (value != 0)
+                return false;
+        }
+
+        return true;
     }
 
     /// <summary>
@@ -101,6 +174,16 @@ public static class SetsAndMaps
         // on those classes so that the call to Deserialize above works properly.
         // 2. Add code below to create a string out each place a earthquake has happened today and its magitude.
         // 3. Return an array of these string descriptions.
-        return [];
+        var result = new List<string>();
+
+        foreach (var feature in featureCollection.Features)
+        {
+            var place = feature.Properties.Place;
+            var mag = feature.Properties.Mag;
+
+            result.Add($"{place} - Mag {mag})");
+        }
+
+        return result.ToArray();
     }
 }
