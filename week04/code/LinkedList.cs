@@ -217,11 +217,13 @@ public class LinkedList : IEnumerable<int>
     /// </summary>
     public IEnumerator<int> GetEnumerator()
     {
-        var curr = _head; // Start at the beginning since this is a forward iteration.
+        // Start at the beginning since this is a forward iteration.
+        var curr = _head;
         while (curr is not null)
         {
-            yield return curr.Data; // Provide (yield) each item to the user
-            curr = curr.Next; // Go forward in the linked list
+            // Provide (yield) each item to the user as we go through the list.
+            yield return curr.Data;
+            curr = curr.Next;
         }
     }
 
